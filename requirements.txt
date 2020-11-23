@@ -13,7 +13,7 @@ cmocean==2.0
 colorspacious==1.1.2
 conda==4.8.4
 conda-package-handling==1.7.0+0.g7c4a471.dirty
-cryptography==2.9.2
+cryptography==3.2
 cycler==0.10.0
 decorator==4.4.2
 descartes==1.1.0
