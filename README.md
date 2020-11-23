@@ -19,6 +19,9 @@ The elements M<sub>ij</sub> of the overall contact matrix are obtained as a line
 
 For more details, please refer to [Mistry, Dina, et al. "Inferring high-resolution human mixing patterns for disease modeling." arXiv preprint arXiv:2003.01214 (2020)](https://arxiv.org/abs/2003.01214).
 
+[![DOI](https://zenodo.org/badge/239899144.svg)](https://zenodo.org/badge/latestdoi/239899144)
+
+
 ## List of matrices included in this dataset
 1. Australia
     * Australian Capital Territory
