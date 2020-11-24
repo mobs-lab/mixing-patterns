@@ -1,4 +1,4 @@
-## The packages required to run this script can be installed by uncommenting the appropriate lines of package installation in the code (lines 29 and 32). 
+## The packages required to run this script can be installed by uncommenting the appropriate lines of package installation in the code (lines 30 and 33). 
 ## Packages requiring installation are the following:
 ## - RColorBrewer
 ## - cmocean.
@@ -10,9 +10,10 @@
 setwd(".")
 dir.create("./survey_model_matrix_comparisons/fig")
 
-all.m.file = list.files("./survey_model_matrix_comparisons", full.names = T)
-survey.m.file = all.m.file[grep("Survey", all.m.file)]
-model.m.file = all.m.file[grep("Model", all.m.file)]
+all.m.file = list.files("./survey_model_matrix_comparisons", pattern = "([A-Z])([a-z]*)(.csv)", full.names = T)
+# check that only necessary files with the following pattern are added to the folder and for each survey a unique model file exists
+survey.m.file = all.m.file[grep("(/Survey_)", all.m.file)]
+model.m.file = all.m.file[grep("(/Model_)", all.m.file)]
 
 all.files = c(survey.m.file, model.m.file)
 print(matrix(all.files, ncol = 2))
@@ -34,7 +35,7 @@ library(cmocean)
 my.cols = cmocean('deep')(k)[k:1]
 
 
-for(i in 1:3){
+for(i in 1:length(survey.m.file)){
   countrydata1 = as.numeric(as.matrix(m.all[[i]]))
   idx.0 = which(countrydata1 == 0)
   countrydata2 = as.numeric(as.matrix(m.all[[i+3]]))
