@@ -54,7 +54,7 @@ pyshp==2.1.0
 PySocks==1.7.1
 python-dateutil==2.8.1
 pytz==2020.1
-PyYAML==5.1.2
+PyYAML==5.4
 requests==2.23.0
 ruamel-yaml==0.15.87
 scipy==1.5.0
