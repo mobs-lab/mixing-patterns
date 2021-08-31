@@ -41,7 +41,7 @@ analysisdir = os.path.split(thisdir)[0]
 # path to the data subdirectory
 datadir = os.path.join(os.path.split(os.path.split(thisdir)[0])[0], 'data')
 
-location_file = os.path.join(analysisdir, 'location_country_names.csv')
+location_file = os.path.join(datadir, 'location_to_country.csv')
 locations_df = pd.read_csv(location_file, delimiter=',')
 
 setting_fractions_file = os.path.join(analysisdir, 'summary_fractions_by_location.csv')
@@ -247,16 +247,15 @@ def get_new_aggregate_matrices(location, num_agebrackets, available_age_brackets
 
     """
     country = get_country_name(locations_df, location)
-    if location == 'Israel':
+    if location == 'Israel' or location == country:
         ages = get_ages(location, country, 'country')
     else:
         ages = get_ages(location, country, 'subnational')
     aggregate_ages = get_aggregate_ages(ages, age_by_brackets_dic)
 
     new_matrices = dict()
-
     for layer in ['household', 'school', 'work']:
-        if location == 'Israel':
+        if location == 'Israel' or location == country:
             matrix = read_contact_matrix(location, country, 'country', layer)
         else:
             matrix = read_contact_matrix(location, country, 'subnational', layer)
@@ -266,7 +265,7 @@ def get_new_aggregate_matrices(location, num_agebrackets, available_age_brackets
         aggregate_matrix = get_asymmetric_matrix(aggregate_symmetric_matrix, aggregate_ages)
         new_matrices[layer] = aggregate_matrix
 
-    if location == 'Israel':
+    if location == 'Israel' or location == country:
         og_matrix = read_contact_matrix(location, country, 'country', 'community')
     else:
         og_matrix = read_contact_matrix(location, country, 'subnational', 'community')
@@ -344,31 +343,27 @@ if __name__ == '__main__':
 
     for country in countries:
         locations += get_locations_by_country(locations_df, country)
-        if country in locations and country != 'Israel':
-            locations.remove(country)
+        if country not in locations and country not in ['Russia', 'Europe']:
+            locations.append(country)
 
         if country == 'India':
             locations.remove('Dadra_and_Nagar_Haveli')
             locations.remove('Chandigarh')
             locations.remove('Lakshadweep')
 
-    if 'Russian_Federation' in locations:
-        locations.remove('Russian_Federation')
-    # locations = locations[0:1]
-
     write_flag = True
     # write_flag = False
 
     for li, location in enumerate(locations):
+        print(location, country)
         country = get_country_name(locations_df, location)
-        if location == 'Israel':
+        if location == 'Israel' or location == country:
             ages = get_ages(location, country, 'country')
         else:
             ages = get_ages(location, country, 'subnational')
         aggregate_ages = get_aggregate_ages(ages, age_by_brackets_dic)
 
         new_matrices = get_new_aggregate_matrices(location, num_agebrackets, available_age_brackets, age_by_brackets_mapping)
-        print(location, country)
         if write_flag:
             write_new_aggregated_matrices(location, new_matrices, datadir)
             write_new_aggregated_ages(location, aggregate_ages, datadir)
