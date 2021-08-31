@@ -303,7 +303,7 @@ def write_new_aggregated_matrices(location, new_matrices, datadir):
             file_name = f"{country}_{level}_{location}_{setting_type}_{setting}_{setting_suffix}_{num_agebrackets:.0f}.csv"
         file_path = os.path.join(datadir, 'contact_matrices', file_name)
         print(location, layer, new_matrices[setting].sum() / num_agebrackets)
-        np.savetxt(file_path, new_matrices[setting], fmt='%.16f')
+        np.savetxt(file_path, new_matrices[setting], fmt='%.16f', delimiter=',')
     return
 
 
@@ -324,7 +324,7 @@ def write_new_aggregated_ages(location, aggregate_ages, datadir):
     else:
         file_name = f"{country}_{level}_{location}_age_distribution_{num_agebrackets:.0f}.csv"
     file_path = os.path.join(datadir, 'age_distributions', file_name)
-    print(file_path)
+    # print(file_path)
     f = open(file_path, 'w+')
     for a in range(len(aggregate_ages)):
         f.write(f"{a:.16f},{aggregate_ages[a]:.16f}\n")
@@ -332,7 +332,6 @@ def write_new_aggregated_ages(location, aggregate_ages, datadir):
 
 
 if __name__ == '__main__':
-
 
     available_age_brackets, age_by_brackets_mapping = get_available_age_brackets_and_mapping()
 
@@ -369,8 +368,7 @@ if __name__ == '__main__':
         aggregate_ages = get_aggregate_ages(ages, age_by_brackets_dic)
 
         new_matrices = get_new_aggregate_matrices(location, num_agebrackets, available_age_brackets, age_by_brackets_mapping)
-
+        print(location, country)
         if write_flag:
-            print(datadir)
             write_new_aggregated_matrices(location, new_matrices, datadir)
             write_new_aggregated_ages(location, aggregate_ages, datadir)
