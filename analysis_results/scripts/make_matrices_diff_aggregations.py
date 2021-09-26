@@ -236,7 +236,8 @@ def get_aggregate_matrix(M, age_by_brackets_dic):
         M (np.array): original age mixing contact matrix
         age_by_brackets_dic (dict) : a dictionary mapping single years of age to the bracket or bin they map to
 
-
+    Returns:
+        np.array: An aggregated age mixing contact matrix using the age_by_brackets_dic mapping.
     """
     N = len(M)
     num_agebrackets = len(set(age_by_brackets_dic.values()))
@@ -371,6 +372,7 @@ def write_new_aggregated_ages(location, aggregate_ages, datadir):
     f = open(file_path, 'w+')
     for a in range(len(aggregate_ages)):
         f.write(f"{a:.16f},{aggregate_ages[a]:.16f}\n")
+    f.close()
     return
 
 
