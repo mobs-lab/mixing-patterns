@@ -437,14 +437,6 @@ def combine_matrices(location, num_agebrackets=85, weights=None, verbose=False):
 
 if __name__ == '__main__':
 
-    # find out what age brackets and mappings are available -- if you want to use different ones than available, look at the details of this method to add them
-    available_age_brackets, age_by_brackets_mapping = get_available_age_brackets_and_mapping()
-
-    # let's create contact matrices aggregated to 18 age brackets: 5 year bins, where the last bin is 84 years old and up
-    num_agebrackets = 18
-    age_brackets = available_age_brackets[num_agebrackets]
-    age_by_brackets_dic = age_by_brackets_mapping[num_agebrackets]
-
     # get all of the locations possible from the countries/regions we provide data for
     countries = ['Australia', 'Canada', 'China', 'Europe', 'India', 'Israel', 'Japan', 'Russia', 'South_Africa', 'United_States']
     locations = []
@@ -459,6 +451,14 @@ if __name__ == '__main__':
             locations.remove('Dadra_and_Nagar_Haveli')
             locations.remove('Chandigarh')
             locations.remove('Lakshadweep')
+
+    # find out what age brackets and mappings are available -- if you want to use different ones than available, look at the details of this method to add them
+    available_age_brackets, age_by_brackets_mapping = get_available_age_brackets_and_mapping()
+
+    # let's create contact matrices aggregated to 18 age brackets: 5 year bins, where the last bin is 84 years old and up
+    num_agebrackets = 18
+    age_brackets = available_age_brackets[num_agebrackets]
+    age_by_brackets_dic = age_by_brackets_mapping[num_agebrackets]
 
     # first a check: all the original matrix files for 85 age brackets have ',' as the delimiter
     check_matrix_files_delimiter(85)
