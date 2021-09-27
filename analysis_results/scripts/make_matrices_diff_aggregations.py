@@ -461,7 +461,7 @@ if __name__ == '__main__':
             locations.remove('Lakshadweep')
 
     # first a check: all the original matrix files for 85 age brackets have ',' as the delimiter
-    # check_matrix_files_delimiter(85)
+    check_matrix_files_delimiter(85)
 
     # next: write the setting matrices aggregated to num_agebrackets
     write_flag = False  # set to True to save matrices to disk
@@ -484,8 +484,8 @@ if __name__ == '__main__':
     check_age_distribution_count(locations, num_agebrackets=num_agebrackets)
 
     # write the overall matrix for the new aggregation
-    write_flag = True  # set to True to save matrices to disk
+    write_flag = False  # set to True to save matrices to disk
     if write_flag:
         for location in locations:
             matrix = combine_matrices(location, num_agebrackets=num_agebrackets)  # just returns a new overall matrix (weighted linear combination) for num_agebrackets
-            write_new_aggregated_matrices(location, matrix, datadir, overwrite=True)
+            write_new_aggregated_matrices(location, matrix, datadir)
