@@ -241,7 +241,7 @@ def get_aggregate_matrix(M, age_by_brackets_dic):
     """
     N = len(M)
     num_agebrackets = len(set(age_by_brackets_dic.values()))
-    assert M >= num_agebrackets, 'The number of age brackets to aggregate to the matrix to is greater than the original matrix. We cannot aggregate the contact matrix with this mapping.'
+    assert N >= num_agebrackets, 'The number of age brackets to aggregate to the matrix to is greater than the original matrix. We cannot aggregate the contact matrix with this mapping.'
     M_agg = np.zeros((num_agebrackets, num_agebrackets))
     for i in range(N):
         bi = age_by_brackets_dic[i]
@@ -277,7 +277,7 @@ def get_aggregate_symmetric_community_matrices(aggregate_ages):
     return M
 
 
-def get_new_aggregate_matrices(location, num_agebrackets, available_age_brackets, age_by_brackets_mapping):
+def get_new_aggregate_matrices(location, num_agebrackets, available_age_brackets, age_by_brackets_mapping, verbose=False):
     """
     For a location, recombine the contact matrices to a new mapping of age
     brackets or groups. The last age bracket must include all ages from 84 on
@@ -313,6 +313,10 @@ def get_new_aggregate_matrices(location, num_agebrackets, available_age_brackets
     for a in aggregate_ages:
         new_matrices['community'][a, :] = new_matrices['community'][a, :] / new_matrices['community'][a, :].sum()
 
+    if verbose:
+        print(location)
+        for layer in ['household', 'school', 'work', 'community']:
+            print(layer, new_matrices[layer].sum() / num_agebrackets)
     return new_matrices
 
 
@@ -471,7 +475,7 @@ if __name__ == '__main__':
             aggregate_ages = get_aggregate_ages(ages, age_by_brackets_dic)
 
             new_matrices = get_new_aggregate_matrices(location, num_agebrackets, available_age_brackets, age_by_brackets_mapping)
-            write_new_aggregated_matrices(location, new_matrices, datadir)
+            write_new_aggregated_matrices(location, new_matrices, datadir, overwrite)
             write_new_aggregated_ages(location, aggregate_ages, datadir)
 
     # check those matrices use the correct delimiter of ','
@@ -480,8 +484,8 @@ if __name__ == '__main__':
     check_age_distribution_count(locations, num_agebrackets=num_agebrackets)
 
     # write the overall matrix for the new aggregation
-    write_flag = False  # set to True to save matrices to disk
+    write_flag = True  # set to True to save matrices to disk
     if write_flag:
         for location in locations:
             matrix = combine_matrices(location, num_agebrackets=num_agebrackets)  # just returns a new overall matrix (weighted linear combination) for num_agebrackets
-            write_new_aggregated_matrices(location, matrix, datadir)
+            write_new_aggregated_matrices(location, matrix, datadir, overwrite=True)
