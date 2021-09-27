@@ -17,7 +17,10 @@ Each contact matrix has dimensions 85x85. For the 4 settings (households, school
 
 The elements M<sub>ij</sub> of the overall contact matrix are obtained as a linear combination of the 4 setting (per capita) contact matrices. The weight of each setting contact matrix represent the average number of effective contacts made in the setting that can lead to disease transmission. The overall contact matrix element M<sub>ij</sub> can then be thought of as representing the per capita number of contacts an individual of age i has with individuals of age j.
 
-For more details, please refer to [Mistry, Dina, et al. "Inferring high-resolution human mixing patterns for disease modeling." arXiv preprint arXiv:2003.01214 (2020)](https://arxiv.org/abs/2003.01214).
+For more details, please refer to [Mistry, D., Litvinova, M., Pastore y Piontti, A. et al. "Inferring high-resolution human mixing patterns for disease modeling." Nat Commun 12, 323 (2021)](https://www.nature.com/articles/s41467-020-20544-y).
+
+[![DOI](https://zenodo.org/badge/239899144.svg)](https://zenodo.org/badge/latestdoi/239899144)
+
 
 ## List of matrices included in this dataset
 1. Australia
