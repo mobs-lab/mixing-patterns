@@ -21,7 +21,6 @@ datadir = os.path.join(os.path.split(os.path.split(thisdir)[0])[0], 'data')
 location_file = os.path.join(datadir, 'location_to_country.csv')
 locations_df = pd.read_csv(location_file, delimiter=',')
 
-
 popsizes_file = os.path.join(datadir, 'population_size.csv')
 popsizes_df = pd.read_csv(popsizes_file, delimiter=',')
 
@@ -119,7 +118,7 @@ def get_available_age_brackets_and_mapping():
         # # matrices that go in more detail than age 84+, so if you wanted
         # # brackets of 85-89, 90-94, 95-100+, etc. it would be hard unless
         # # you have those matrices (which we don't because of the European
-        # # matrices for Hungary and Portugal)
+        # # matrices)
 
         # if num_agebrackets == 20:
         #     for i in range(19):
@@ -306,7 +305,7 @@ if __name__ == '__main__':
         if country not in locations and country not in ['Russia', 'Europe']:
             locations.append(country)
 
-        # a few territories in India we did not end up modeling
+        # a few territories in India we did not model
         if country == 'India':
             locations.remove('Dadra_and_Nagar_Haveli')
             locations.remove('Chandigarh')
@@ -332,6 +331,3 @@ if __name__ == '__main__':
         if write_flag:
             write_rescaled_ages(location, rescaled_ages, datadir)
             write_rescaled_aggregated_ages(location, aggregate_ages, datadir)
-
-
-
