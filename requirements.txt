@@ -23,7 +23,7 @@ GDAL==3.0.4
 geopandas==0.8.1
 idna==2.9
 igraph==0.1.11
-ipython==7.18.1
+ipython==7.31.1
 ipython-genutils==0.2.0
 jedi==0.17.2
 kiwisolver==1.2.0
